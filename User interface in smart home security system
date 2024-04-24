@@ -1,0 +1,66 @@
+#include <LiquidCrystal_I2C.h>
+// Initialize the LCD display
+LiquidCrystal_I2C lcd(0x27, 16, 2); // Change the address if necessary
+// Variables
+bool isArmed = false;
+bool isBreachDetected = false;
+void setup() 
+{
+  // Initialize LCD display
+  lcd.begin(16, 2);
+   // Display initial message
+  lcd.print("Smart Security");
+  lcd.setCursor(0, 1);
+  lcd.print("System");
+  delay(2000);
+  // Clear the display
+  lcd.clear();
+}
+void loop() 
+{
+  // Check if there is a breach detected
+  isBreachDetected = checkBreach();
+  // Update the LCD display
+  updateDisplay();
+  // Delay for smoother display update
+  delay(500);
+}
+bool checkBreach() {
+  // Replace this with your actual breach detection logic
+  // For example, reading from a motion sensor or door/window sensor // Simulating breach detection randomly
+  return random(2);
+}
+void updateDisplay() 
+{
+  lcd.setCursor(0, 0);
+  if (isArmed) 
+{
+    lcd.print("System Armed");
+  } 
+else {
+    lcd.print("System Disarmed");
+  }
+    lcd.setCursor(0, 1);
+  if (isBreachDetected) 
+{
+    lcd.print("Breach Detected!");
+  } else {
+    lcd.print("No Breach");
+  }
+}
+void armSystem() 
+{
+  isArmed = true;
+  lcd.clear();
+  lcd.print("System Armed");
+  delay(2000);
+  lcd.clear();
+}
+void disarmSystem() 
+{
+isArmed = false;
+  lcd.clear();
+  lcd.print("System Disarmed");
+  delay(2000);
+  lcd.clear();
+}
