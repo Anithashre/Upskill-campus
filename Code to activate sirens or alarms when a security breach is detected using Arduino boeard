@@ -1,0 +1,36 @@
+// Constants
+const int motionSensorPin = 2; // Pin connected to the motion sensor
+const int doorSensorPin = 3; // Pin connected to the door/window sensor
+const int alarmPin = 4; // Pin connected to the alarm or siren
+// Variables
+int motionState = 0;
+int doorState = 0;
+void setup() 
+{
+  pinMode(motionSensorPin, INPUT);
+  pinMode(doorSensorPin, INPUT);
+  pinMode(alarmPin, OUTPUT);
+  Serial.begin(9600);
+}
+void loop() 
+{
+  motionState = digitalRead(motionSensorPin);
+  doorState = digitalRead(doorSensorPin);
+if (motionState == HIGH || doorState == HIGH) {
+    activateAlarm();
+  } else {
+    deactivateAlarm();
+  }
+}
+void activateAlarm() 
+{
+  digitalWrite(alarmPin, HIGH);
+  Serial.println("Security breach detected! Alarm activated!");
+}
+void deactivateAlarm() 
+{
+  digitalWrite(alarmPin, LOW);
+ Serial.println("Security breach resolved. Alarm deactivated.");
+}
+ Serial.println("Security breach resolved. Alarm deactivated.");
+}
